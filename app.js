@@ -41,12 +41,13 @@ var options = {
 
 request(options, function(error, response, body){
 if (error){
-  console.log(error);
+  res.sendFile(__dirname + "/failure.html");
 } else {
-  console.log(response.statusCode);
+  res.sendFile(__dirname + "/sucess.html");
 }
 });
 });
-app.listen(3000, function() {
+//local or dynamic
+app.listen(process.env.PORT || 3000, function() {
   console.log("server is running");
 });
