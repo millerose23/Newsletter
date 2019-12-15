@@ -43,10 +43,19 @@ request(options, function(error, response, body){
 if (error){
   res.sendFile(__dirname + "/failure.html");
 } else {
-  res.sendFile(__dirname + "/sucess.html");
+  if (response.statusCode == 200)
+  {
+    res.sendFile(__dirname + "/sucess.html");
+  }else{
+    res.sendFile(__dirname + "/failure.html");
+  }
 }
 });
 });
+app.post("failure", function(req,res){
+  res.redirect("/");
+});
+
 //local or dynamic
 app.listen(process.env.PORT || 3000, function() {
   console.log("server is running");
