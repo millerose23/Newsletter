@@ -15,10 +15,38 @@ app.post("/", function(req, res){
 var firstname = req.body.fname;
 var lastname = req.body.lname;
 var email = req.body.email;
-console.log(firstname, lastname, email);
 
+var data = {
+  members: [
+    {email_address: email,
+      status: "subscribed",
+      merge_fields: {
+        FNAME: firstname,
+        LNAME: lastname
+      }
+    }
+  ]
+};
+
+var jsonData = JSON.stringify(data);
+
+var options = {
+  url:  "https://us18.api.mailchimp.com/3.0/lists/7f68043477",
+  method: "POST",
+  headers: {
+  "Authorization":"millerose23 c4edfb0962659e705a60185a69ed774b-us18 "
+},
+  body: jsonData
+};
+
+request(options, function(error, response, body){
+if (error){
+  console.log(error);
+} else {
+  console.log(response.statusCode);
+}
 });
-
+});
 app.listen(3000, function() {
   console.log("server is running");
 });
